@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const ToDolistValidator = require("../middleware/listValidator");
 
+const listValidator = require("../middleware/listValidator");
 const {
   addActivity,
   showActivity,
   updateActivity,
 } = require("../controller/ActivityController");
 
-router.post("/addActivity", ToDolistValidator, addActivity);
+router.post("/addActivity", listValidator, addActivity);
 
-router.get("/showActivity", ToDolistValidator, showActivity);
-router.put("/updateActivity/:id", ToDolistValidator, updateActivity);
+router.get("/showActivity", listValidator, showActivity);
+router.put("/updateActivity/:id", listValidator, updateActivity);
 
 module.exports = router;

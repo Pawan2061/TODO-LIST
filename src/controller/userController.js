@@ -16,7 +16,14 @@ const register = async (req, res) => {
     });
 
     await newUser.save();
-    res.send(newUser);
+
+    const payload = { email: email, password: password };
+    const token = createtoken(payload);
+    const newPayload = {
+      email: email,
+      Token: token,
+    };
+    res.status(200).send(newPayload);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -37,9 +44,8 @@ const login = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-  const users=await User.find()
+  const users = await User.find();
   try {
-    
     if (!users) {
       res.status(400).send("this user dont exists");
     }
@@ -53,5 +59,5 @@ const getUsers = async (req, res) => {
 module.exports = {
   register,
   login,
-  getUsers
+  getUsers,
 };
